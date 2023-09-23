@@ -45,3 +45,26 @@ sumOfDigits(7, 8) // Output: 15
 sumOfDigits(17, 20) // Output: 29
 sumOfDigits(10, 12) // Output: 6
 
+// Task 3)
+
+func isProperly(sequence: String) -> Bool {
+    var stack = [Character]()
+
+    for char in sequence {
+        if char == "(" {
+            stack.append(char)
+        } else if char == ")" {
+            if stack.isEmpty {
+                return false // Parentheses are not properly matched
+            } else {
+                stack.popLast()
+            }
+        }
+    }
+
+    return stack.isEmpty
+}
+
+isProperly(sequence: "(()())") // Output: true
+isProperly(sequence: ")(()")  // Output: false
+isProperly(sequence: "(()())(") // Output: false
