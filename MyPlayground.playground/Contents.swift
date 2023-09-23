@@ -68,3 +68,26 @@ func isProperly(sequence: String) -> Bool {
 isProperly(sequence: "(()())") // Output: true
 isProperly(sequence: ")(()")  // Output: false
 isProperly(sequence: "(()())(") // Output: false
+
+// Task 4)
+
+
+
+// Task 5)
+
+func zeros(N: Int) -> Int {
+    var count = 0
+    var n = N
+    
+    while n >= 5 {
+        n /= 5
+        count += n
+    }
+    
+    return count
+}
+
+zeros(N: 7)  // Output: 1
+zeros(N: 12) // Output: 2
+zeros(N: 490) // Output: 120
+zeros(N: 1000) // Output: 249
