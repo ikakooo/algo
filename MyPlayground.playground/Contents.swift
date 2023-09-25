@@ -27,7 +27,7 @@ minSplit(amount: 52626669)
 
 func sumOfDigits(_ start: Int,_ end: Int) -> Int {
     var sum = 0
-
+    
     for number in start...end {
         let numberString = String(number)
         for character in numberString {
@@ -36,7 +36,7 @@ func sumOfDigits(_ start: Int,_ end: Int) -> Int {
             }
         }
     }
-
+    
     return sum
 }
 
@@ -49,7 +49,7 @@ sumOfDigits(10, 12) // Output: 6
 
 func isProperly(sequence: String) -> Bool {
     var stack = [Character]()
-
+    
     for char in sequence {
         if char == "(" {
             stack.append(char)
@@ -61,7 +61,7 @@ func isProperly(sequence: String) -> Bool {
             }
         }
     }
-
+    
     return stack.isEmpty
 }
 
@@ -71,7 +71,68 @@ isProperly(sequence: "(()())(") // Output: false
 
 // Task 4)
 
+func countWays(n: Int, steps: [Int]) -> Int {
+    let isFirstOne = (steps.first ?? 0) == 1
+    let isLastOne = (steps.last ?? 0) == 1
+    var count = 1
+    var zerosCount = 0
+    var onesCount = isFirstOne ? 1 : 0
+    var previous = isFirstOne ? 1 : 0
+    
+    for i in 0..<n {
+        
+        if previous != steps[i] {
+            let combinations = fib(num: onesCount)
+            
+            count *= (combinations > 0 ?  combinations : 1)
+            
+            if zerosCount > 1 {
+                return 0
+            }
+            
+            onesCount = 0
+            zerosCount = 0
+            previous = steps[i]
+        }
+        
+        if steps[i] == 0 {
+            zerosCount += 1
+        }
+        
+        if steps[i] == 1 {
+            onesCount += 1
+        }
+    }
+    
+    onesCount += isLastOne ? 1 : 0
+    
+    let combinations = fib(num: onesCount)
 
+    count *= (combinations > 0 ?  combinations : 1)
+    
+    if zerosCount > 1 {
+        return 0
+    }
+    
+    return count
+}
+
+func fib(num: Int) -> Int{
+    if (num == 0){
+        return 0
+    }
+    else if (num == 1){
+        return 1
+    }
+    return fib(num: num - 1) + fib(num: num -  2)
+}
+
+countWays(n: 2, steps: [1,1]) // ➞ 3
+countWays(n: 3, steps: [1,0,0,1])   // ➞ 0
+countWays(n: 3, steps: [1,0,1])   // ➞ 1
+countWays(n: 3, steps: [0, 1, 0])    // ➞ 1
+countWays(n: 4, steps: [0, 1, 1, 0])   // ➞ 1
+countWays(n: 5, steps: [1, 1, 0, 1, 1]) // ➞ 4
 
 // Task 5)
 
